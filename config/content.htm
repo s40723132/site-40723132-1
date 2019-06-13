@@ -1,0 +1,523 @@
+<h1>網路連線設定</h1>
+<p><span>了解機械設計系電腦輔助設計室電腦的網路設定, 其中包括 IPv4 網路與 IPv6 網路設定.</span><br/><br/><span>正常情況下, 電腦輔助設計室中的 64 台電腦透過 IPv4 協定下的 DHCP 與 NAT 上網, 各電腦以 DHCP client 取得 192.168.1.* 的網路位址, 然後以 NAT 的一組外部 IP 上網, 通常必須設定 Proxy Server 為 http://proxy.kmol.info:3128 後上網會比較順暢, 但若 8 台 Proxy Servers 無法正常運作時, 則取消 Proxy Server 的設定.</span><br/><br/><span>瀏覽器代理主機設定</span><br/><br/><span>了解如何設定 Google Chrome 與 Firefox 瀏覽器的代理主機設定.</span><br/><br/><span>申請 Github 帳號</span><br/><br/><span>利用 Gmail 帳號申請 Github 帳號, 申請後利用電子郵箱收信進行確認後, 就可以在 Github 上建立倉儲.</span></p>
+<h1>配置可攜程式環境</h1>
+<p><span>取得 Windows 10 64 位元環境下的可攜程式環境 (</span><a href="https://drive.google.com/open?id=1_TQBw1PM7jxrmtsBjvLKbjJWfGs8Ug79">下載  2019_cdb_w5.7z</a><span>), 下載後解開目錄, 放入 USB3.0 規格以上的隨身碟或隨身硬碟.</span><br/><br/><span>以滑鼠點擊 start.bat 開啟可攜隨身系統, 以 stop.bat 關閉可攜隨身系統, 隨身碟必須在關閉所有應用程式執行下, 才可正常退出.</span><br/><br/><span>了解基本的 DOS (Disk Operating System) 指令</span><br/><br/><span>C:\&gt; 符號為 DOS 命令列視窗的回應 (Prompt), 表示目前在 C 槽硬碟的 \ 根目錄, 若要切換到 Y 槽, 則在電腦的回應後, 輸入 Y:, 命令列將轉為</span><br/><br/><span>Y:\&gt;</span><br/><br/><span>若要更換目錄, 則使用 cd, 也就是 change directory 的意思, 例如:</span><br/><br/><span>Y:\&gt;cd tmp</span><br/><br/><span>表示要從 Y 槽的根目錄更換到 tmp 目錄, 也就是</span><br/><br/><span>Y:\tmp&gt;</span><br/><br/><span>若要再回到 Y 槽的根目錄, 可以使用 cd ..</span><br/><br/><span>表示要從目前所在目錄, 往上跳回一個目錄, 也就是重新回到 Y 槽的根目錄.</span><br/><br/><span>另外, 無論目前位於哪一個子目錄, 也可以使用 cd \</span><br/><br/><span>直接回到根目錄.</span><br/><br/><span>或者從 Y:\&gt; 直接使用</span><br/><br/><span>cd \tmp\repo\ssh\wcm2019</span><br/><br/><span>直接從 Y 槽的根目錄, 跳進 Y:\tmp\repo\ssh\wcm2019&gt;</span><br/><br/><span>此外, 常用的 DOS 指令有:</span><br/><br/><span>dir - 列出目前所在目錄的內容</span><br/><br/><span>mkdir - 隨後加上要建立目錄的名稱, 可以建立目錄</span><br/><br/><span>cls - clear screen, 清除目前的命令列顯示的內容</span></p>
+<h1>倉儲改版</h1>
+<p><span>可攜程式系統中已經內建 git, 可以在啟動 start.bat 後, 透過 path 的設定, 直接執行 git 指令.</span><br/><br/><span>建立 Git 倉儲, 共分為兩類, 一類是直接在 Github 網際介面下建立倉儲時, 要求建立 README.md 檔案, 之後可以直接在近端, 以 git clone 加上倉儲連線 URL, 將倉儲克隆一份到近端, 並以最新版本作為工作目錄, 使用者改版後, 可以直接透過 git add, commit 與 push 對遠端倉儲改版.</span><br/><br/><span>另一類則是故意在 Github 網際介面下建立倉儲時, 不要建立任何檔案, 而是在近端自行利用 git 指令建立倉儲架構, 新增內容後, 以 git remote add 設法在近端倉儲中納入 origin URL 後, 將近端倉儲版本新增提交推送到遠端.</span><br/><br/><span>git add</span><br/><br/><span>git add 可以用來新增一個檔案, 數個檔案, 或在之前提交後所新增的所有內容.</span><br/><br/><span>git add 在 GIT 架構下, 是對所新增或修改的內容拍快照:</span><br/><br/></p>
+<blockquote class="tr_bq">git add . adds all modified and new (untracked) files in the current directory and all subdirectories to the staging area (a.k.a. the index), thus preparing them to be included in the next git commit . Any files matching the patterns in the .gitignore file will be ignored by git add</blockquote>
+<p><br/><span>git commit </span><br/><br/><span>git commit 執行之前, 必須使用 git config 建立臨時或永久的身分註記, 因為 GIT 在展開所有改版內容時, 必須明確登錄這些變更的作者與時間.</span><br/><br/><span>當使用者採用 git commit -m "改版說明訊息", 此次提交到 .git 目錄下的更動內容, 均會綁定使用者身分與改版所輸入的說明訊息.</span><br/><br/><span>git push</span><br/><br/><span>git push 在隨後沒有輸入遠端 URL 代號時, 表示要推送到 origin, 若透過 git remote add 設定其他代號與 URL 對應時, git push 加上代號, 就可以將此次的提交內容, 推送到指定的 URL 所在遠端倉儲.</span><br/><br/></p>
+<h1>靜態 CMSimfly</h1>
+<p><span>自行建立靜態內容管理網站</span><br/><br/><span>利用 CMSimfly (</span><a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly</a><span>) 內容, 建立自己的<span> </span></span><a href="https://pages.github.com/">Github Pages</a><span><span> </span>網站</span></p>
+<h1>Mobile 網站內容</h1>
+<p><span>使用 Flask, bs4 與 lxml 模組</span><br/><br/><span>了解 CMSimfly 如何建構, 並且嘗試修改現有功能, 除錯或建立自己的網際內容管理系統</span></p>
+<p><span>實體主機下的網際內容管理</span><br/><br/><span>如何在實體主機上安裝<span> </span></span><a href="https://www.ubuntu.com/">Ubuntu</a><span><span> </span>18.04 (</span><a href="https://www.ubuntu.com/about/release-cycle">https://www.ubuntu.com/about/release-cycle</a><span>), 配置網路連線, 然後架構<span> </span></span><a href="https://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html">uwsgi</a><span><span> </span>環境下的 CMSimfly 動態網站, 或建立 Fossil SCM 用來伺服管理 CMSimfly 下有版次管理的靜態網頁, 或利用<span> </span></span><a href="https://nginx.org/en/">nginx</a><span><span> </span>伺服無版次管理的 CMSimfly 靜態網頁.</span></p>
+<h1>Virtual Host</h1>
+<p><span>虛擬主機下的類 Github 網站</span><br/><br/><span>如何利用<span> </span></span><a href="https://www.fossil-scm.org/">Fossil SCM</a><span>, 在<span> </span></span><a href="https://www.virtualbox.org/">Virtualbox</a><span><span> </span>中的<span> </span></span><a href="https://drive.google.com/open?id=1yjWQ5e6AGaio2ZvclONKEwIfSMtY2gSz">Ubuntu 18.04-2</a><span> (8.5 GB) 建立類似 Github 的系統, 可以放入 CMSimfly 的靜態網頁，</span></p>
+<p>virtual box 設定<br/><br/><span>Virtualbox File 下拉式功能表下的 Preferences 屬於全系統的偏好設定, 而與各虛擬主機對應的 Settings 則僅與該對應的虛擬主機有關.</span><br/><br/><span>Virtualbox 虛擬主機網路設定</span></p>
+<p><span>Not Attached<br/><br/><span>當使用者需要模擬虛擬主機的網路卡連接線被拔除的情況時, 可將該虛擬主機的網路卡以 Not Attached 模式設定.</span><br/><br/><span>NAT</span><br/><span><br/></span><span></span><span>當使用者只需要讓虛擬主機能夠上網, 下載檔案或登入電子郵箱時, 可以將虛擬主機的網路卡以 NAT 模式設定. 在 NAT 模式下, 只有 ping 能夠運作, tracert 與其他與 ICMP 、VPN 或 PPTP 等協定對應的功能都將會失效.</span><br/><br/><span>NAT  Network</span><br/><br/><span>NAT Network 與 NAT 類似, 但使用者可以透過 File-Preferences-Network 新增多個 NAT Network, 並選擇所要使用的網段與 DHCP 或是否支援 IPv6 等設定.</span><br/><br/><span>Bridged Adapter</span><br/><span><br/></span><span></span><span>當使用者需要利用虛擬主機建立與 Host 位階相同的網路模式時, 可以將虛擬主機的網卡設訂為 Bridged Adapter.</span><br/><br/><span>Internal Network</span><br/><br/><span>當使用者需要讓虛擬主機設定為 </span><a href="https://en.wikipedia.org/wiki/Software-defined_networking">https://en.wikipedia.org/wiki/Software-defined_networking</a><span> 時, 可以將網路卡設為可透過軟體調控的網路模式.</span><br/><br/><span>Host-only Adapter</span><br/><span><br/></span><span></span><span>當使用者只需要讓虛擬主機與 Host 電腦連線時, 可以將網卡設為 Host-only Adapter, 此一模式的使用時機可以在虛擬主機中配置 WWW 伺服器、應用程式伺服器、Fossil SCM 伺服器, 然後透過 Host 上的瀏覽器進行連線測試, 或者在虛擬主機上安裝特定軟體套件的認證主機, 以便讓 Host 中的軟體套件透過虛擬主機執行授權認證.</span></span></p>
+<h3>Virtualbox</h3>
+<p><span>利用 <a href="https://download.virtualbox.org/virtualbox/6.0.8/VirtualBox-6.0.8-130520-Win.exe">Virtualbox</a> 建立虛擬 <a href="https://www.ubuntu.com/download/server/thank-you?version=18.04.2&amp;architecture=amd64">Ubuntu 18.04</a> 網際內容管理系統伺服主機:</span><br/><span><br/></span><span>1. 安裝最新版的 Virtualbox</span><br/><span>2. 建立 Ubuntu 18.04 虛擬主機</span><br/><span>3. 以網路卡橋接啟動 Ubuntu 伺服器</span><br/><span>4. 以 sudo apt install nginx 安裝 nginx WWW 伺服器</span><br/><span>5. 以 ifconfig 查 Ubuntu 伺服器的 IP, 測試 nginx 伺服器是否可以連線</span><br/><span>6. 以 Windows 10  下的 Filezilla client, 將編輯好的 nginx 設定檔案送到 Ubuntu</span><br/><span>7. 利用 Ubuntu 指令將設定檔案搬至設定位置後, 以 /etc/init.d/nginx restart 重新啟動 nginx</span><br/><span>8. 在 Ubuntu 中以 sudo apt install uwsgi 安裝 uwsgi</span><br/><span>9. 在 Windows 10 編輯 uwsgi 與 nginx 所需的設定檔案, 完成後以 filezilla 送至 Ubuntu.</span><br/><span>10. 將 CMSimfly 程式碼送到 Ubuntu 伺服器中對應目錄後.</span><br/><span>11. 在 Ubuntu 建立 cmsimfly 服務, 並設定隨機啟動.</span><br/><span>12. 完成後, 在 Windows 10 以瀏覽器連線至 CMSimfly, 確認動態網頁與靜態網頁可以在虛擬主機中正常啟動.</span></p>
+<h1>期中報告</h1>
+<p>40723122 施東勝 <a href="https://www.youtube.com/watch?v=hEIMfQZy904" rel="nofollow">https://www.youtube.com/watch?v=hEIMfQZy904</a></p>
+<p>40723130 陳彥旭 <a href="https://youtu.be/kcYoyJfUzwQ" rel="nofollow">https://youtu.be/kcYoyJfUzwQ</a></p>
+<p>40723132 陳乾豐 <a href="https://youtu.be/vuB8cI9bfqs" rel="nofollow">https://youtu.be/vuB8cI9bfqs</a></p>
+<p>40723138 黃奕慶 <a href="https://www.youtube.com/watch?v=0-PIQCpXfsw&amp;feature=youtu.be" rel="nofollow">https://www.youtube.com/watch?v=0-PIQCpXfsw&amp;feature=youtu.be</a></p>
+<p>40723148 鄭博鴻 <a href="https://youtu.be/IBVqsCszxjI" rel="nofollow">https://youtu.be/IBVqsCszxjI</a></p>
+<p>40723149 鄭嘉文 <a href="https://youtu.be/M4qsbW7XFiE" rel="nofollow">https://youtu.be/M4qsbW7XFiE</a></p>
+<h3>簡介</h3>
+<p>CMSimfly (<a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly)</a> 是一套簡單的網際內容管理系統, 採用 Flask 網際框架, 以 Beautifulsoup 解讀分頁內容.</p>
+<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p>
+<p><a href="https://wcm2019-task-g5.blogspot.com/"><img alt="" height="143" src="/images/Blogger-com-logo.jpg" width="424"/></a></p>
+<h3>成員</h3>
+<p>40723122 施東勝</p>
+<p>40723130 陳彥旭</p>
+<p>40723132 陳乾豐</p>
+<p>40723138 黃奕慶</p>
+<p>40723148 鄭博鴻</p>
+<p>40723149 鄭嘉文</p>
+<h2>GAME1</h2>
+<p>game1</p>
+<p>The game of craps has the following rules:</p>
+<p>課本章節: <a href="https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2">https://link.springer.com/chapter/10.1007/978-1-4842-4155-4_2</a> </p>
+<p>The player throws a pair of dice. The sum of the two top faces is what matters so a 1<br/>and a 3 is the same as 2 and 2. The sum of two 6-sided dice can be any number from 2 to<br/>12. If the player throws a 7 or 11 on the first throw, the player wins. If the player throws a 2, 3, or 12, the player loses. For any other result (4, 5, 6, 8, 9, 10), this result is recorded as what is called the player’s point and a follow-up throw is required. On follow-up throws, a throw of 7 loses and a throw of the player’s point wins. For anything else, the game continues with the follow-up throw rules.</p>
+<p><button onclick="myFunction()">Try it</button></p>
+<p id="demo"></p>
+<p>
+<script>// <![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
+}
+// ]]></script>
+</p>
+<p>上述程式原始碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;button onclick="myFunction()"&gt;Try it&lt;/button&gt;&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
+}
+// ]]&gt;&lt;/script&gt;</pre>
+<p>
+<script type="text/javascript">// <![CDATA[
+var cwidth = 400;
+	var cheight = 300;
+	var dicex = 50;
+	var dicey = 50;
+	var dicewidth = 100;
+	var diceheight = 100;
+	var dotrad = 6;
+	var ctx;
+	var dx;
+	var dy;
+	var firstturn = true;
+	var point;
+function throwdice() {
+	var sum;
+	var ch = 1+Math.floor(Math.random()*6);
+	sum = ch;
+	dx = dicex;
+	dy = dicey;
+	drawface(ch);
+	dx = dicex + 150;
+	ch=1 + Math.floor(Math.random()*6);
+	sum += ch;
+	drawface(ch);
+	if (firstturn) {
+		switch(sum) {
+			case 7:
+			case 11:
+			  document.f.outcome.value="You win!";
+			  break;
+			case 2:
+			case 3:
+			case 12:
+			  document.f.outcome.value="You lose!";
+			  break;
+			default:
+			  point = sum;
+			  document.f.pv.value=point;
+			  firstturn = false;
+			  document.f.stage.value="Need follow-up throw.";
+			  document.f.outcome.value="   ";
+		}
+	}
+	else {
+		switch(sum) {
+		case point:
+		   document.f.outcome.value="You win!";
+		   document.f.stage.value="Back to first throw.";
+		   document.f.pv.value=" ";
+		   firstturn = true;
+		   break;
+		case 7:
+		   document.f.outcome.value="You lose!";
+		   document.f.stage.value="Back to first throw.";
+		   document.f.pv.value=" ";
+		   firstturn = true;
+		}
+		   	}
+}
+function drawface(n) {
+  ctx = document.getElementById('canvas').getContext('2d');  
+  ctx.lineWidth = 5;
+  ctx.clearRect(dx,dy,dicewidth,diceheight);
+  ctx.strokeRect(dx,dy,dicewidth,diceheight)
+  var dotx;
+  var doty;
+  ctx.fillStyle = "#009966";
+	switch(n) {
+		case 1:
+		 draw1();
+		 break;
+		case 2:
+		 draw2();
+		 break;
+		case 3:
+		 draw2();
+		 draw1();
+		 break;
+		case 4:
+		 draw4();
+		 break;
+		case 5:
+		 draw4();
+		 draw1();
+		 break;
+		case 6:
+		 draw4();
+		 draw2mid();
+		 break;
+		
+	}
+}
+function draw1() {
+	var dotx;
+	var doty;
+	ctx.beginPath();
+	dotx = dx + .5*dicewidth;
+	doty = dy + .5*diceheight;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	ctx.closePath();
+	ctx.fill();
+}
+function draw2() {
+	var dotx;
+	var doty;
+	ctx.beginPath();
+	dotx = dx + 3*dotrad;
+	doty = dy + 3*dotrad;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	dotx = dx+dicewidth-3*dotrad;
+	doty = dy+diceheight-3*dotrad;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	ctx.closePath();
+	ctx.fill();
+}
+function draw4() {
+	var dotx;
+	var doty;
+	ctx.beginPath();
+	dotx = dx + 3*dotrad;
+	doty = dy + 3*dotrad;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	dotx = dx+dicewidth-3*dotrad;
+	doty = dy+diceheight-3*dotrad;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	ctx.closePath();
+	ctx.fill();
+	ctx.beginPath();
+	dotx = dx + 3*dotrad;
+	doty = dy + diceheight-3*dotrad;  //no change
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	dotx = dx+dicewidth-3*dotrad;
+	doty = dy+ 3*dotrad;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	ctx.closePath();
+	ctx.fill();	
+}
+function draw2mid() {
+	var dotx;
+	var doty;
+	ctx.beginPath();
+	dotx = dx + 3*dotrad;
+	doty = dy + .5*diceheight;
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	dotx = dx+dicewidth-3*dotrad;
+	doty = dy + .5*diceheight; //no change
+	ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+	ctx.closePath();
+	ctx.fill();
+}
+// ]]></script>
+</p>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas> <br/> <button onclick="throwdice();">Throw dice </button></p>
+<form id="f" name="f">Stage: <input name="stage" type="text" value="First Throw"/> Point: <input name="pv" type="text" value="   "/> Outcome: <input name="outcome" type="text" value="     "/></form>
+<p>上述程式原始碼:</p>
+<h2>國旗</h2>
+<!-- 導入 Brython 標準程式庫 -->
+<p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+</p>
+<p></p>
+<p></p>
+<!-- 啟動 Brython -->
+<p>
+<script>// <![CDATA[
+window.onload=function(){
+// 設定 data/py 為共用程式路徑
+brython({debug:1, pythonpath:['./../data/py']});
+}
+// ]]></script>
+</p>
+<p><br/><br/><br/><canvas height="400" id="plotarea" width="600"></canvas></p>
+<p></p>
+<p>
+<script type="text/python">// <![CDATA[
+# 導入 doc
+from browser import document as doc
+import math
+
+# 準備繪圖畫布
+canvas = doc["plotarea"]
+ctx = canvas.getContext("2d")
+# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+# 以下採用 canvas 原始座標繪圖
+flag_w = canvas.width
+flag_h = canvas.height
+circle_x = flag_w/4
+circle_y = flag_h/4
+# 先畫滿地紅
+ctx.fillStyle='rgb(255, 0, 0)'
+ctx.fillRect(0,0,flag_w,flag_h)
+# 再畫青天
+ctx.fillStyle='rgb(0, 0, 150)'
+ctx.fillRect(0,0,flag_w/2,flag_h/2)
+# 畫十二道光芒白日
+ctx.beginPath()
+star_radius = flag_w/8
+angle = 0
+for i in range(24):
+    angle += 5*math.pi*2/12
+    toX = circle_x + math.cos(angle)*star_radius
+    toY = circle_y + math.sin(angle)*star_radius
+    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
+    if (i):
+        ctx.lineTo(toX, toY)
+    else:
+        ctx.moveTo(toX, toY)
+ctx.closePath()
+# 將填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+# 白日:藍圈
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為藍色
+ctx.fillStyle = 'rgb(0, 0, 149)'
+ctx.fill()
+# 白日:白心
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+// ]]></script>
+</p>
+<p>上述程式原始碼:</p>
+<h2>齒輪</h2>
+<!-- 導入 Brython 標準程式庫 -->
+<p>
+<script src="/static/brython.js"></script>
+<script src="/static/brython_stdlib.js"></script>
+</p>
+<p></p>
+<!-- 啟動 Brython -->
+<p>
+<script>// <![CDATA[
+window.onload=function(){
+// 設定 data/py 為共用程式路徑
+brython({debug:1, pythonpath:['./../data/py']});
+}
+// ]]></script>
+</p>
+<p><canvas height="600" id="onegear" width="800"></canvas></p>
+<div height="20" id="onegear_div" width="800"></div>
+<p><input id="n1" type="text" value="13"/><br/> <input id="n2" type="text" value="11"/><br/> <input id="n3" type="text" value="17"/><br/> <button id="button">Set Number of Gears</button></p>
+<h1>Ubuntu操作步驟</h1>
+<p><span>利用 Virtualbox 建立虛擬 Ubuntu 18.04 網際內容管理系統伺服主機:</span><br/><span><br/></span><span>1. 安裝最新版的 Virtualbox</span><br/><span>2. 建立 Ubuntu 18.04 虛擬主機</span><br/><span>3. 以網路卡橋接啟動 Ubuntu 伺服器</span><br/><span>4. 以 sudo apt install nginx 安裝 nginx WWW 伺服器</span><br/><span>5. 以 ifconfig 查 Ubuntu 伺服器的 IP, 測試 nginx 伺服器是否可以連線</span><br/><span>6. 以 Windows 10  下的 Filezilla client, 將編輯好的 nginx 設定檔案送到 Ubuntu</span><br/><span>7. 利用 Ubuntu 指令將設定檔案搬至設定位置後, 以 /etc/init.d/nginx restart 重新啟動 nginx</span><br/><span>8. 在 Ubuntu 中以 sudo apt install uwsgi 安裝 uwsgi</span><br/><span>9. 在 Windows 10 編輯 uwsgi 與 nginx 所需的設定檔案, 完成後以 filezilla 送至 Ubuntu.</span><br/><span>10. 將 CMSimfly 程式碼送到 Ubuntu 伺服器中對應目錄後.</span><br/><span>11. 在 Ubuntu 建立 cmsimfly 服務, 並設定隨機啟動.</span><br/><span>12. 完成後, 在 Windows 10 以瀏覽器連線至 CMSimfly, 確認動態網頁與靜態網頁可以在虛擬主機中正常啟動.</span></p>
+<h1>Ubuntu 安裝</h1>
+<p>先安裝 <span>Virtualbox 和 Filezilla client</span></p>
+<p><span>下載 Ubuntu 18.04.2 LTS 的安裝檔</span></p>
+<p><span>下載 Ubuntu Server (18.04.2 LTS) 安裝檔</span></p>
+<h1>SSH協定</h1>
+<p><span>  Github 倉儲<br/><br/><span>以 scrum-1 帳號為例, 若採 ssh clone 倉儲, 需要先設定對應權限.</span><br/><br/><span>基本概念</span><br/><br/><span>從<span> </span></span><a href="https://github.com/scrum-1/cd2019">https://github.com/scrum-1/cd2019</a><span><span> </span>倉儲中對應的 clone or downloads 中 Clone with SSH, 所列出的 URL 為:</span><br/><br/><span>    git@github.com:scrum-1/cd2019.git</span><br/><br/><span>表示將以 git 帳號, 登入 github.com 主機, 進入 scrum-1 帳號中對應的 cd2019 倉儲, 若直接 git clone 此一倉儲, 則指令為:</span><br/><br/><span>    git clone git@github.com:scrum-1/cd2019.git</span><br/><br/><span>特別注意, 其中的 github.com 為網站符號名稱, 意思是所採用的 ssh 將利用 @ 前方的 git 當作帳號, 並且將採用 ssh 協定登入 github.com 網站.</span><br/><br/><span>假如, 使用者所採用的可攜程式套件, 只在 home 目錄下的 .ssh 目錄登記一個 private key, 使用者就可以直接在 home/.ssh/config 中,將 github.com 當作 Host 代號, 並對應到 Hostname 為 github.com 作為連線的網站名稱.</span><br/><br/><span>但是, 若使用者所使用的可攜程式套件, 登錄一個以上的 private keys 時, 就必須透過一個以上不同的 Host 名稱加以區別, 以便導引 ssh 協定至不同區段, 以不同的 private key 對應 Github 上不同帳號下所登錄的 public key.</span><br/></span></p>
+<h1><span><span>期末影片</span></span></h1>
+<p><a href="https://www.youtube.com/watch?v=oBO8aU4AID0" title="國立虎尾科技大學 機械設計工程系 網際內容管理期末報告 40723132 陳乾豐">https://www.youtube.com/watch?v=oBO8aU4AID0</a><br/>
+<script type="text/python3">// <![CDATA[
+from browser import document as doc
+from browser import html
+import math
+# deg 為角度轉為徑度的轉換因子
+deg = math.pi/180.
+# 定義 Spur 類別
+class Spur(object):
+    def __init__(self, ctx):
+        self.ctx = ctx
+
+    def create_line(self, x1, y1, x2, y2, width=3, fill="red"):
+        self.ctx.beginPath()
+        self.ctx.lineWidth = width
+        self.ctx.moveTo(x1, y1)
+        self.ctx.lineTo(x2, y2)
+        self.ctx.strokeStyle = fill
+        self.ctx.stroke()
+    #
+    # 定義一個繪正齒輪的繪圖函式
+    # midx 為齒輪圓心 x 座標
+    # midy 為齒輪圓心 y 座標
+    # rp 為節圓半徑, n 為齒數
+    # pa 為壓力角 (deg)
+    # 已經針對 n 大於等於 52 齒時的繪圖錯誤修正, 因為 base circle 與齒根圓大小必須進行判斷
+    def Gear(self, midx, midy, rp, n=20, pa=20, color="black"):
+        # 齒輪漸開線分成 15 線段繪製
+        imax = 15
+        # 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
+        self.create_line(midx, midy, midx, midy-rp)
+        # 畫出 rp 圓, 畫圓函式尚未定義
+        #create_oval(midx-rp, midy-rp, midx+rp, midy+rp, width=2)
+        # a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
+        # 模數也就是齒冠大小
+        a=2*rp/n
+        # d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
+        d=2.5*rp/n
+        # ra 為齒輪的外圍半徑
+        ra=rp+a
+        # 畫出 ra 圓, 畫圓函式尚未定義
+        #create_oval(midx-ra, midy-ra, midx+ra, midy+ra, width=1)
+        # rb 則為齒輪的基圓半徑
+        # 基圓為漸開線長齒之基準圓
+        rb=rp*math.cos(pa*deg)
+        # 畫出 rb 圓 (基圓), 畫圓函式尚未定義
+        #create_oval(midx-rb, midy-rb, midx+rb, midy+rb, width=1)
+        # rd 為齒根圓半徑
+        rd=rp-d
+        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+        # 畫出 rd 圓 (齒根圓), 畫圓函式尚未定義
+        #create_oval(midx-rd, midy-rd, midx+rd, midy+rd, width=1)
+        # dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
+        # 將圓弧分成 imax 段來繪製漸開線
+        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+        if rd>rb:
+            dr = (ra-rd)/imax
+        else:
+            dr=(ra-rb)/imax
+        # tan(pa*deg)-pa*deg 為漸開線函數
+        sigma=math.pi/(2*n)+math.tan(pa*deg)-pa*deg
+        for j in range(n):
+            ang=-2.*j*math.pi/n+sigma
+            ang2=2.*j*math.pi/n+sigma
+            lxd=midx+rd*math.sin(ang2-2.*math.pi/n)
+            lyd=midy-rd*math.cos(ang2-2.*math.pi/n)
+            for i in range(imax+1):
+                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+                if rd>rb:
+                    r=rd+i*dr
+                else:
+                    r=rb+i*dr
+                theta=math.sqrt((r*r)/(rb*rb)-1.)
+                alpha=theta-math.atan(theta)
+                xpt=r*math.sin(alpha-ang)
+                ypt=r*math.cos(alpha-ang)
+                xd=rd*math.sin(-ang)
+                yd=rd*math.cos(-ang)
+                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+                if(i==0):
+                    last_x = midx+xd
+                    last_y = midy-yd
+                # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
+                # 最後一點, 則為齒頂圓
+                if(i==imax):
+                    lfx=midx+xpt
+                    lfy=midy-ypt
+                last_x = midx+xpt
+                last_y = midy-ypt
+            # the line from last end of dedendum point to the recent
+            # end of dedendum point
+            # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
+            # 下列為齒根圓上用來近似圓弧的直線
+            self.create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=color)
+            for i in range(imax+1):
+                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
+                if rd>rb:
+                    r=rd+i*dr
+                else:
+                    r=rb+i*dr
+                theta=math.sqrt((r*r)/(rb*rb)-1.)
+                alpha=theta-math.atan(theta)
+                xpt=r*math.sin(ang2-alpha)
+                ypt=r*math.cos(ang2-alpha)
+                xd=rd*math.sin(ang2)
+                yd=rd*math.cos(ang2)
+                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
+                if(i==0):
+                    last_x = midx+xd
+                    last_y = midy-yd
+                # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
+                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
+                # 最後一點, 則為齒頂圓
+                if(i==imax):
+                    rfx=midx+xpt
+                    rfy=midy-ypt
+                last_x = midx+xpt
+                last_y = midy-ypt
+            # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
+            # 下列為齒頂圓上用來近似圓弧的直線
+            self.create_line(lfx,lfy,rfx,rfy,fill=color)
+
+canvas = doc['onegear']
+ctx = canvas.getContext("2d")
+
+# 以 button 驅動的事件函式
+def setgearnumber(e):
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    x = (canvas.width)/2
+    y = (canvas.height)/2
+    if doc["n1"].value.isdigit():
+        n17 = int(doc["n1"].value)
+    else:
+        n17 = 17
+
+    if doc["n2"].value.isdigit():
+        n11 = int(doc["n2"].value)
+    else:
+        n11 = 11
+
+    if doc["n3"].value.isdigit():
+        n13 = int(doc["n3"].value)
+    else:
+        n13 = 13
+
+    # 只使用畫布高度的 80%
+    canvas_size = canvas.height*0.4
+    r17 = canvas_size*n17/(n17+n11+n13)
+    r11 = canvas_size*n11/(n17+n11+n13)
+    r13 = canvas_size*n13/(n17+n11+n13)
+    # 計算各齒輪中心座標
+    x17 = x - r17-r11
+    y17 = y
+
+    x11 = x 
+    y11 = y
+
+    x13 = x + r11+r13
+    y13 = y
+
+    pa = 20
+    # 開始繪製齒輪
+    # 儲存原有的座標系統
+    ctx.save()
+    # 平移到齒輪圓心
+    ctx.translate(x17, y17)
+    # 以齒輪圓心旋轉 90 度, 讓紅色標線在齒輪右側保持水平
+    ctx.rotate(90*deg)
+    # 平移回原來的座標原點
+    ctx.translate(-x17, -y17)
+    gear17 = Spur(ctx).Gear(x17, y17, r17, n17, pa, "blue")
+    # 回復原有的座標系統
+    ctx.restore()
+
+    ctx.save()
+    ctx.translate(x11, y11)
+    # 中間齒輪轉動 -90 度加上一齒, 可以與左側齒輪囓合
+    ctx.rotate(-90*deg-math.pi/n11)
+    ctx.translate(-x11, -y11)
+    gear11 = Spur(ctx).Gear(x11, y11, r11, n11, pa, "blue")
+    ctx.restore()
+
+    ctx.save()
+    ctx.translate(x13, y13)
+    # 右側齒輪轉動 -90 度加上一齒, 可以與原來標線在左側水平的中間齒輪囓合, 但是目前中間齒輪的標線已經轉了 180 度加或減一次
+    # 必須配合兩齒的速比轉換旋轉角, 以便讓中間齒輪與右側齒輪囓合
+    ctx.rotate(-90*deg-math.pi/n13+(180*deg+math.pi/n11)*n11/n13)
+    ctx.translate(-x13, -y13)
+    gear13 = Spur(ctx).Gear(x13, y13, r13, n13, pa, "blue")
+    ctx.restore()
+
+setgearnumber(True)
+
+'''
+div = doc["onegear_div"]
+form = html.FORM()
+input1 = html.INPUT(type="text", id="n1", name="n1", value="13")
+input2 = html.INPUT(type="text", id="n2", name="n2", value="11")
+input3 = html.INPUT(type="text", id="n3", name="n3", value="19")
+div <= input1 + html.BR() + input2 + html.BR() + input3
+'''
+doc['button'].bind('click',setgearnumber)
+// ]]></script>
+</p>
